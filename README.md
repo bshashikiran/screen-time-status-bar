@@ -8,16 +8,6 @@
 - Automatically starts and stops tracking based on the window's focus state.
 - Displays the total screen time in a human-readable format (HH:MM:SS).
 
-
-## Installation
-
-### From the Marketplace
-
-1. Open Visual Studio Code.
-2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or pressing `Ctrl+Shift+X`.
-3. Search for `Screen Time`.
-4. Click **Install**.
-
 ## Usage
 
 Once the extension is installed, the screen time will automatically start tracking when you open VS Code.
