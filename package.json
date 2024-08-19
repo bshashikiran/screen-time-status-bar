@@ -1,0 +1,29 @@
+{
+  "name": "screen-time-status-bar",
+  "displayName": "Screen Time Status Bar",
+  "description": "Displays live screen time in the status bar",
+  "version": "0.0.1",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.showScreenTime",
+        "title": "Show Screen Time"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:json"
+  ],
+  "dependencies": {
+    "screen-time-status-bar": "file:"
+  },
+  "devDependencies": {
+    "vsce": "^2.5.0"
+  }
+}
