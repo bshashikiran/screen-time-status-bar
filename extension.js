@@ -14,14 +14,12 @@ function activate(context) {
 	context.subscriptions.push(statusBarItem);
 
 	function updateStatusBar() {
-		// console.log("Inside updateStatusBar()");
 		const activeTime = formatTime(totalActiveTime + (isActive ? Date.now() - startTime : 0));
 		statusBarItem.text = `Screen Time: ${activeTime}`;
-		// console.log(`Status Bar Updated: ${activeTime}`);
+		console.log(`Status Bar Updated: ${activeTime}`);
 	}
 
 	function formatTime(ms) {
-		// console.log("Inside formatTime()");
 		const seconds = Math.floor(ms / 1000);
 		const minutes = Math.floor(seconds / 60);
 		const hours = Math.floor(minutes / 60);
@@ -29,45 +27,35 @@ function activate(context) {
 	}
 
 	function startTracking() {
-		console.log("Inside startTracking()");
 		startTime = Date.now();
 		isActive = true;
 	}
 
 	function stopTracking() {
-		console.log("Inside stopTracking()");
 		if (isActive) {
-			console.log("Inside stopTracking()- Active : true");
 			totalActiveTime += Date.now() - startTime;
 			isActive = false;
 		}
 	}
 
 	function onWindowFocus() {
-		console.log("Inside onWindowFocus()");
 		startTracking();
 	}
 
 	function onWindowBlur() {
-		console.log("Inside onWindowBlur()");
 		stopTracking();
 	}
 
 	vscode.window.onDidChangeWindowState((windowState) => {
-		console.log("Inside onDidChangeWindowState()");
 		if (windowState.focused) {
-			console.log("Inside onDidChangeWindowState() - if");
 			onWindowFocus();
 		} else {
-			console.log("Inside onDidChangeWindowState() - else");
 			onWindowBlur();
 		}
 	});
 
 	vscode.workspace.onDidChangeTextDocument(() => {
-		console.log("Inside onDidChangeTextDocument()");
 		if (vscode.window.state.focused) {
-			console.log("Inside onDidChangeTextDocument()- - focused");
 			startTracking();
 		}
 	});
@@ -86,7 +74,7 @@ function activate(context) {
 }
 
 function deactivate() {
-  console.log("Inside deactive()");
+  console.log('Extension "screen-time-status-bar" deactivated');
  }
 
 module.exports = {
