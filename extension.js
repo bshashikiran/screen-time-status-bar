@@ -16,7 +16,7 @@ function activate(context) {
 	function updateStatusBar() {
 		const activeTime = formatTime(totalActiveTime + (isActive ? Date.now() - startTime : 0));
 		statusBarItem.text = `Screen Time: ${activeTime}`;
-		console.log(`Status Bar Updated: ${activeTime}`);
+		// console.log(`Status Bar Updated: ${activeTime}`);
 	}
 
 	function formatTime(ms) {
@@ -54,11 +54,16 @@ function activate(context) {
 		}
 	});
 
+	if (vscode.window.state.focused) {
+		startTracking();
+	}
+	
 	vscode.workspace.onDidChangeTextDocument(() => {
 		if (vscode.window.state.focused) {
 			startTracking();
 		}
 	});
+
 
 	updateStatusBar(); // Initial update
 	interval = setInterval(updateStatusBar, 1000); // Update every 1 second
