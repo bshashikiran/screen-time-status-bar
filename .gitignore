@@ -1,2 +1,3 @@
 node_modules
-screen-time-status-bar-0.0.1.vsix
+screen-time-status-bar-*.*.*.vsix
+DEVNOTES.md

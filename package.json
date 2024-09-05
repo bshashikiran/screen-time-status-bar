@@ -1,9 +1,9 @@
 {
   "name": "screen-time-status-bar",
-  "displayName": "Screen Time Status Bar",
+  "displayName": "Screen Time",
   "description": "Displays live screen time in the status bar",
-  "version": "0.0.1",
-  "publisher": "your-publisher-name",
+  "version": "0.0.3",
+  "publisher": "bshashikiran",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -25,5 +25,10 @@
   },
   "devDependencies": {
     "vsce": "^2.5.0"
+  },
+  "icon": "images/screen-time-status-bar-icon.png",
+  "galleryBanner": {
+    "color": "#1E90FF",
+    "theme": "dark"
   }
 }
