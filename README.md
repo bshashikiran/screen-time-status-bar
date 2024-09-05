@@ -6,7 +6,7 @@
 
 - Displays live screen time in the VS Code status bar.
 - Automatically starts and stops tracking based on the window's focus state.
-- Displays the total screen time in a human-readable format (HH:MM:SS).
+- Displays the total screen time in a human-readable format.
 
 ## Usage
 

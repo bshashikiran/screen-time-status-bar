@@ -7,7 +7,7 @@ function activate(context) {
 	let startTime = null;
 	let accumulatedTime = 0;
 	let timerInterval = null;
-	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
 	statusBar.show();
 	context.subscriptions.push(statusBar);
 
