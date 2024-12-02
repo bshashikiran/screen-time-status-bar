@@ -1,9 +1,12 @@
 const vscode = require('vscode');
-const { startTimer, stopTimer, formatTime } = require('./utility/timer'); 
+const { startTimer, stopTimer, formatTime } = require('./utility/timer');
+const {saveData} = require('./saveData')
+const { retrieveData } = require('./retrieveData')
 
 function activate(context) {
 
 	console.log('Extension "screen-time-status-bar" is now active!');
+	let retrievedScreenTime = retrieveData();
 
 	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
 	statusBar.show();
@@ -14,7 +17,7 @@ function activate(context) {
 	};
 
 	if (vscode.window.state.focused) {
-		startTimer(updateStatusBar);
+		startTimer(updateStatusBar, retrievedScreenTime);
 	}
 
 	vscode.window.onDidChangeWindowState((windowState) => {
@@ -31,11 +34,15 @@ function activate(context) {
 	context.subscriptions.push(disposable);
 
 	context.subscriptions.push({
-		dispose: () => stopTimer()
+		dispose: () => {
+			stopTimer();
+		}
 	});
 }
 
-function deactivate() {
+function deactivate(context) {
+	let elapsedTime = stopTimer();
+	saveData(elapsedTime);
 	console.log('Extension "screen-time-status-bar" deactivated');
 }
 

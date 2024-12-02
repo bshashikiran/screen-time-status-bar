@@ -2,7 +2,11 @@ let startTime = null;
 let accumulatedTime = 0;
 let timerInterval = null;
 
-const startTimer = (updateCallback) => {
+const startTimer = (updateCallback, retrievedScreenTime = 0) => {
+    if (accumulatedTime == 0 && retrievedScreenTime) {
+        accumulatedTime = retrievedScreenTime;
+    }
+
     if (!timerInterval) {
         startTime = Date.now();
         timerInterval = setInterval(() => {
@@ -16,7 +20,9 @@ const stopTimer = () => {
         accumulatedTime += Date.now() - startTime;
         clearInterval(timerInterval);
         timerInterval = null;
+        startTime = null;
     }
+    return accumulatedTime;
 };
 
 const formatTime = () => {
