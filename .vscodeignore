@@ -8,3 +8,7 @@ vsc-extension-quickstart.md
 **/*.map
 **/.eslintrc.json
 **/.vscode-test.*
+node_modules
+DEVNOTES.md
+package-lock.json
+screen-time-status-bar-*.*.*.vsix

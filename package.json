@@ -1,18 +1,22 @@
 {
   "name": "screen-time-status-bar",
   "displayName": "Screen Time",
-  "description": "Displays live screen time in the status bar",
-  "version": "0.0.3",
+  "description": "Track your live screen time in the status bar, with options to save, delete, and manage workspace-specific usage data easily.",
+  "version": "0.0.4",
   "publisher": "bshashikiran",
   "engines": {
     "vscode": "^1.75.0"
   },
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "extension.showScreenTime",
         "title": "Show Screen Time"
+      },
+      {
+        "command": "extension.deleteScreenTime",
+        "title": "Delete Screen Time"
       }
     ]
   },
