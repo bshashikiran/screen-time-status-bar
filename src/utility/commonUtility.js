@@ -2,7 +2,6 @@ const vscode  = require('vscode');
 const { MY_EXTENSION_ID } = require("../constants/constant");
 
 const getExtensionPath = () => {
-    getCurrentWorkSpace();
     const myExtension =  vscode.extensions.getExtension(MY_EXTENSION_ID);
     if (myExtension) {
         return myExtension.extensionPath;
@@ -20,10 +19,16 @@ const getCurrentWorkSpace = () => {
         console.log("current workspace path:", currentWorkspace);
         return currentWorkspace;
     } else {
-        console.log("no workspace or folder is currently open.");
         return null;
     }
-    
 }
 
-module.exports = { getExtensionPath };
+const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+module.exports = { getExtensionPath,  getCurrentWorkSpace, getTodayDate };

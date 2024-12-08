@@ -1,12 +1,13 @@
 const vscode = require('vscode');
 const { startTimer, stopTimer, formatTime } = require('./utility/timer');
-const {saveData} = require('./saveData')
-const { retrieveData } = require('./retrieveData')
+const { saveScreenTime } = require('./saveScreenTime')
+const { retrieveScreenTime } = require('./retrieveScreenTime');
+const { deleteScreenTime } = require('./deleteScreenTime');
 
-function activate(context) {
+const activate = (context) => {
 
 	console.log('Extension "screen-time-status-bar" is now active!');
-	let retrievedScreenTime = retrieveData();
+	let retrievedScreenTime = retrieveScreenTime();
 
 	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
 	statusBar.show();
@@ -33,6 +34,16 @@ function activate(context) {
 	});
 	context.subscriptions.push(disposable);
 
+	let deleteScreenTimeData = vscode.commands.registerCommand('extension.deleteScreenTime', () => {
+		let isDeleted = deleteScreenTime();
+		if (isDeleted) {
+			vscode.window.showInformationMessage('Deleted Screen Time');
+		} else {
+			vscode.window.showErrorMessage('Failed to delete screen time');
+		}
+	});
+	context.subscriptions.push(deleteScreenTimeData);
+
 	context.subscriptions.push({
 		dispose: () => {
 			stopTimer();
@@ -40,9 +51,9 @@ function activate(context) {
 	});
 }
 
-function deactivate(context) {
+const deactivate = () => {
 	let elapsedTime = stopTimer();
-	saveData(elapsedTime);
+	saveScreenTime(elapsedTime);
 	console.log('Extension "screen-time-status-bar" deactivated');
 }
 
