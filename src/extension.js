@@ -25,7 +25,7 @@ const activate = (context) => {
 		if (windowState.focused) {
 			startTimer(updateStatusBar);
 		} else {
-			stopTimer();
+			stopTimer(false);
 		}
 	});
 
@@ -37,7 +37,10 @@ const activate = (context) => {
 	let deleteScreenTimeData = vscode.commands.registerCommand('extension.deleteScreenTime', () => {
 		let isDeleted = deleteScreenTime();
 		if (isDeleted) {
+			stopTimer(true);
 			vscode.window.showInformationMessage('Deleted Screen Time');
+			statusBar.text = "Screen Time: 0h 0m 0s";
+			startTimer(updateStatusBar);
 		} else {
 			vscode.window.showErrorMessage('Failed to delete screen time');
 		}
@@ -46,13 +49,13 @@ const activate = (context) => {
 
 	context.subscriptions.push({
 		dispose: () => {
-			stopTimer();
+			stopTimer(false);
 		}
 	});
 }
 
 const deactivate = () => {
-	let elapsedTime = stopTimer();
+	let elapsedTime = stopTimer(false);
 	saveScreenTime(elapsedTime);
 	console.log('Extension "screen-time-status-bar" deactivated');
 }
