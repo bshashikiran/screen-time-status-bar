@@ -36,7 +36,6 @@ const formatTime = () => {
     const seconds = Math.floor((timeElapsed / 1000) % 60);
     const minutes = Math.floor((timeElapsed / 1000 / 60) % 60);
     const hours = Math.floor(timeElapsed / 1000 / 60 / 60);
-    console.log(`${hours}h ${minutes}m ${seconds}s`)
     return `${hours}h ${minutes}m ${seconds}s`;
 };
 
