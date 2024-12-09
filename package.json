@@ -1,8 +1,8 @@
 {
   "name": "screen-time-status-bar",
   "displayName": "Screen Time",
-  "description": "Track your live screen time in the status bar, with options to save, delete, and manage workspace-specific usage data easily.",
-  "version": "0.0.4",
+  "description": "Track screen time live with easy options to save, delete, and manage workspace data.",
+  "version": "0.0.5",
   "publisher": "bshashikiran",
   "engines": {
     "vscode": "^1.75.0"
