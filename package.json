@@ -28,7 +28,7 @@
     "screen-time-status-bar": "file:"
   },
   "devDependencies": {
-    "vsce": "^2.5.0"
+    "@vscode/vsce": "3.3.1"
   },
   "icon": "images/screen-time-status-bar-icon.png",
   "galleryBanner": {
