@@ -14,7 +14,7 @@ const getDashboardContent = () => {
 
     let totalTimeToday = 0;
     let totalTimeAll = 0;
-    let workspaceCount = 0;
+    const uniqueWorkspaces = new Set();
     let dayCount = Object.keys(allData).length;
 
     const todayData = allData[today] || {};
@@ -28,9 +28,11 @@ const getDashboardContent = () => {
         const workspaces = allData[date];
         Object.keys(workspaces).forEach(workspace => {
             totalTimeAll += workspaces[workspace] || 0;
-            workspaceCount++;
+            uniqueWorkspaces.add(workspace);
         });
     });
+
+    const workspaceCount = uniqueWorkspaces.size;
 
     const sortedDates = Object.keys(allData).sort((a, b) => new Date(b) - new Date(a));
 
