@@ -1,7 +1,8 @@
 const vscode = require('vscode');
 const { retrieveAllScreenTime } = require('./retrieveAllScreenTime');
-const { formatTime } = require('./utils/timerUtils');
-const { getTodayDate } = require('./utils/commonUtils')
+const { formatTime, getCurrentElapsedTime } = require('./utils/timerUtils');
+const { getTodayDate } = require('./utils/commonUtils');
+const { saveScreenTime } = require('./saveScreenTime');
 const path = require('path');
 
 let currentPanel = undefined;
@@ -57,6 +58,11 @@ const getDashboardContent = () => {
     };
 };
 
+const saveScreenTimeHandler = () => {
+    const currentTime = getCurrentElapsedTime();
+    saveScreenTime(currentTime);
+}
+
 const createDashboardPanel = (context) => {
     const columnToShowIn = vscode.window.activeTextEditor
         ? vscode.ViewColumn.Active
@@ -79,6 +85,7 @@ const createDashboardPanel = (context) => {
     );
 
     const updateWebview = () => {
+        saveScreenTimeHandler();
         const data = getDashboardContent();
         panel.webview.html = getWebviewContent(data);
     };

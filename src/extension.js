@@ -1,9 +1,10 @@
 const vscode = require('vscode');
-const { startTimer, stopTimer, calculateCurrentScreenTime } = require('./utils/timerUtils');
-const { saveScreenTime } = require('./saveScreenTime')
+const { startTimer, stopTimer, calculateCurrentScreenTime, getCurrentElapsedTime } = require('./utils/timerUtils');
+const { saveScreenTime } = require('./saveScreenTime');
 const { retrieveScreenTime } = require('./retrieveScreenTime');
 const { deleteScreenTime } = require('./deleteScreenTime');
 const { showDashboard } = require('./dashboard');
+const { SAVE_INTERVAL_MS } = require('./constants/constant');
 
 const activate = (context) => {
 
@@ -16,19 +17,43 @@ const activate = (context) => {
 	statusBar.show();
 	context.subscriptions.push(statusBar);
 
+	let saveInterval = null;
+
 	const updateStatusBar = (timeText) => {
 		statusBar.text = `Screen Time: ${timeText}`;
 	};
 
+	const startSaveInterval = () => {
+		if (saveInterval) {
+			clearInterval(saveInterval);
+		}
+		saveInterval = setInterval(() => {
+			const currentTime = getCurrentElapsedTime();
+			saveScreenTime(currentTime);
+		}, SAVE_INTERVAL_MS);
+	};
+
+	const stopSaveInterval = () => {
+		if (saveInterval) {
+			clearInterval(saveInterval);
+			saveInterval = null;
+		}
+	};
+
 	if (vscode.window.state.focused) {
 		startTimer(updateStatusBar, retrievedScreenTime);
+		startSaveInterval();
 	}
 
 	vscode.window.onDidChangeWindowState((windowState) => {
 		if (windowState.focused) {
 			startTimer(updateStatusBar);
+			startSaveInterval();
 		} else {
 			stopTimer(false);
+			stopSaveInterval();
+			const currentTime = getCurrentElapsedTime();
+			saveScreenTime(currentTime);
 		}
 	});
 
@@ -41,9 +66,11 @@ const activate = (context) => {
 		let isDeleted = deleteScreenTime();
 		if (isDeleted) {
 			stopTimer(true);
+			stopSaveInterval();
 			vscode.window.showInformationMessage('Deleted Screen Time');
 			statusBar.text = "Screen Time: 0h 0m 0s";
 			startTimer(updateStatusBar);
+			startSaveInterval();
 		} else {
 			vscode.window.showErrorMessage('Failed to delete screen time');
 		}
@@ -58,6 +85,7 @@ const activate = (context) => {
 	context.subscriptions.push({
 		dispose: () => {
 			stopTimer(false);
+			stopSaveInterval();
 		}
 	});
 }

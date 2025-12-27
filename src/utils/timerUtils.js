@@ -44,4 +44,11 @@ const calculateCurrentScreenTime = () => {
     return formatTime(timeElapsed);
 }
 
-module.exports = { startTimer, stopTimer, formatTime, calculateCurrentScreenTime };
+const getCurrentElapsedTime = () => {
+    if (startTime === null) {
+        return accumulatedTime;
+    }
+    return (Date.now() - startTime) + accumulatedTime;
+}
+
+module.exports = { startTimer, stopTimer, formatTime, calculateCurrentScreenTime, getCurrentElapsedTime };
