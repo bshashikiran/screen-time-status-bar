@@ -9,7 +9,6 @@ let currentPanel = undefined;
 const getDashboardContent = () => {
     const allData = retrieveAllScreenTime();
     const today = getTodayDate();
-    console.log("Log ~ getDashboardContent ~ today:", today);
 
     let totalTimeToday = 0;
     let totalTimeAll = 0;
@@ -17,9 +16,7 @@ const getDashboardContent = () => {
     let dayCount = Object.keys(allData).length;
 
     const todayData = allData[today] || {};
-    console.log("Log ~ getDashboardContent ~ todayData:", todayData);
     const workspacesToday = Object.keys(todayData);
-    console.log("Log ~ getDashboardContent ~ workspacesToday:", workspacesToday);
 
     workspacesToday.forEach(workspace => {
         totalTimeToday += todayData[workspace] || 0;
