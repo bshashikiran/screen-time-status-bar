@@ -320,8 +320,8 @@ body {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 56px;
-    height: 56px;
+    width: 44px;
+    height: 44px;
     background: var(--vscode-button-background);
     color: var(--vscode-button-foreground);
     border: none;
@@ -330,23 +330,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
 
-/* .refresh-btn:hover {
-    background: var(--vscode-button-hoverBackground);
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-} */
-
-.refresh-btn:active {
-    transform: scale(0.95) rotate(90deg);
-}
-
 .refresh-btn .material-icons {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 /* Responsive Design */
@@ -368,17 +357,4 @@ body {
     }
 }
 
-/* Loading Animation */
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.refresh-btn.loading .material-icons {
-    animation: spin 1s linear infinite;
-}
 

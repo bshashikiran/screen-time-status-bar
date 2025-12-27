@@ -6,18 +6,10 @@
     const refreshBtn = document.getElementById('refresh-btn');
     if (refreshBtn) {
         refreshBtn.addEventListener('click', function() {
-            // Add loading state
-            this.classList.add('loading');
-            
             // Send refresh message to extension
             vscode.postMessage({
                 command: 'refresh'
             });
-            
-            // Remove loading state after a delay (will be reset when content updates)
-            setTimeout(() => {
-                this.classList.remove('loading');
-            }, 1000);
         });
     }
     
