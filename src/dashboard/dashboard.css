@@ -151,26 +151,6 @@ body {
     border-bottom: 2px solid var(--vscode-panel-border);
 }
 
-.today-section-header {
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s ease;
-    padding: 12px;
-    margin-bottom: 0;
-    border-radius: 6px;
-}
-
-.today-section-header:hover {
-    background-color: var(--vscode-list-hoverBackground);
-}
-
-.section-header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-}
-
 .section-icon {
     font-size: 24px;
     color: var(--vscode-textLink-foreground);
@@ -181,7 +161,6 @@ body {
     font-weight: 600;
     color: var(--vscode-editor-foreground);
     flex: 1;
-    margin: 0;
 }
 
 .section-date {
@@ -191,12 +170,6 @@ body {
     padding: 4px 12px;
     border-radius: 6px;
     border: 1px solid var(--vscode-panel-border);
-}
-
-#today-workspaces-content {
-    margin-top: 12px;
-    padding-top: 12px;
-    animation: slideDown 0.3s ease;
 }
 
 /* Workspace List */
