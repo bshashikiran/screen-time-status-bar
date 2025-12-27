@@ -17,6 +17,15 @@
       {
         "command": "extension.deleteScreenTime",
         "title": "Delete Screen Time"
+      },
+      {
+        "command": "extension.showScreenTimeDashboard",
+        "title": "Show Screen Time Dashboard",
+        "_shashi": "look at this later",
+        "icon": {
+          "light": "images/screen-time-status-bar-icon.png",
+          "dark": "images/screen-time-status-bar-icon.png"
+        }
       }
     ]
   },

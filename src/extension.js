@@ -1,8 +1,9 @@
 const vscode = require('vscode');
-const { startTimer, stopTimer, formatTime } = require('./utility/timer');
+const { startTimer, stopTimer, calculateCurrentScreenTime } = require('./utils/timerUtils');
 const { saveScreenTime } = require('./saveScreenTime')
 const { retrieveScreenTime } = require('./retrieveScreenTime');
 const { deleteScreenTime } = require('./deleteScreenTime');
+const { showDashboard } = require('./dashboard');
 
 const activate = (context) => {
 
@@ -10,6 +11,8 @@ const activate = (context) => {
 	let retrievedScreenTime = retrieveScreenTime();
 
 	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+	statusBar.command = 'extension.showScreenTimeDashboard';
+	statusBar.tooltip = 'Show Screen Time Dashboard';
 	statusBar.show();
 	context.subscriptions.push(statusBar);
 
@@ -30,7 +33,7 @@ const activate = (context) => {
 	});
 
 	let disposable = vscode.commands.registerCommand('extension.showScreenTime', () => {
-		vscode.window.showInformationMessage(`Current Screen Time: ${formatTime()}`);
+		vscode.window.showInformationMessage(`Current Screen Time: ${calculateCurrentScreenTime()}`);
 	});
 	context.subscriptions.push(disposable);
 
@@ -46,6 +49,11 @@ const activate = (context) => {
 		}
 	});
 	context.subscriptions.push(deleteScreenTimeData);
+
+	let showDashboardCommand = vscode.commands.registerCommand('extension.showScreenTimeDashboard', () => {
+		showDashboard(context);
+	});
+	context.subscriptions.push(showDashboardCommand);
 
 	context.subscriptions.push({
 		dispose: () => {

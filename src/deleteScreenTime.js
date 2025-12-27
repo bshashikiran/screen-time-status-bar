@@ -1,4 +1,4 @@
-const { getExtensionPath } = require('./utility/commonUtility');
+const { getExtensionPath } = require('./utils/commonUtils');
 const { WORKSPACE_SCREEN_TIME_PATH } = require("./constants/constant");
 const fs = require('fs');
 const path = require('path');

@@ -13,6 +13,7 @@ const getExtensionPath = () => {
 
 const getCurrentWorkSpace = () => {
     const workspaceFolders = vscode.workspace.workspaceFolders;
+    console.log("Log ~ getCurrentWorkSpace ~ workspaceFolders:", workspaceFolders);
 
     if (workspaceFolders && workspaceFolders.length > 0) {
         const currentWorkspace = workspaceFolders[0].uri.fsPath;

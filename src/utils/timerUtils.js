@@ -10,7 +10,7 @@ const startTimer = (updateCallback, retrievedScreenTime = 0) => {
     if (!timerInterval) {
         startTime = Date.now();
         timerInterval = setInterval(() => {
-            updateCallback(formatTime());
+            updateCallback(calculateCurrentScreenTime());
         }, 1000);
     }
 };
@@ -31,12 +31,17 @@ const stopTimer = (isResetTime) => {
     return accumulatedTime;
 };
 
-const formatTime = () => {
-    const timeElapsed = Date.now() - startTime + accumulatedTime;
-    const seconds = Math.floor((timeElapsed / 1000) % 60);
-    const minutes = Math.floor((timeElapsed / 1000 / 60) % 60);
-    const hours = Math.floor(timeElapsed / 1000 / 60 / 60);
-    return `${hours}h ${minutes}m ${seconds}s`;
+const formatTime = (milliseconds) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const secs = Math.floor(totalSeconds % 60);
+    return `${hours}h ${minutes}m ${secs}s`;
 };
 
-module.exports = { startTimer, stopTimer, formatTime };
+const calculateCurrentScreenTime = () => {
+    const timeElapsed = (Date.now() - startTime) + accumulatedTime;
+    return formatTime(timeElapsed);
+}
+
+module.exports = { startTimer, stopTimer, formatTime, calculateCurrentScreenTime };
