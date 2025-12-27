@@ -1,8 +1,8 @@
 {
   "name": "screen-time-status-bar",
   "displayName": "Screen Time",
-  "description": "Track screen time live with easy options to save, delete, and manage workspace data.",
-  "version": "0.0.5",
+  "description": "Track screen time live with easy options to save, delete and with dashboard screen",
+  "version": "0.0.6",
   "publisher": "bshashikiran",
   "engines": {
     "vscode": "^1.75.0"
@@ -28,6 +28,7 @@
     "onStartupFinished",
     "onLanguage:json"
   ],
+  "categories": ["Education", "Visualization", "Other"],
   "dependencies": {
     "screen-time-status-bar": "file:"
   },

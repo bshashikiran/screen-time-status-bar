@@ -1,30 +1,75 @@
-# Screen Time
+# ⏱️ Screen Time – VS Code Extension
 
-**Screen Time** is a Visual Studio Code extension that displays your active screen time in the status bar. It helps you keep track of how much time you've spent working in VS Code, updating live in the status bar and saving time data for individual workspaces.
+**Screen Time** is a lightweight Visual Studio Code extension that tracks how much time you actively spend working in VS Code.  
+It displays live screen time in the status bar and maintains separate time tracking for each workspace.
 
-## Features
-- Displays live screen time in the VS Code status bar.
-- Tracks screen time for each workspace separately and resumes automatically for the current day.
-- Provides a command to delete all saved screen time data effortlessly.
-- Automatically starts and stops tracking based on the window's focus state.
-- Displays the total screen time in a human-readable format.
+---
 
-## Usage
-Once the extension is installed, the screen time will automatically start tracking when you open VS Code.
-The timer updates every second and automatically pauses when you minimize or unfocus the VS Code window. When you return, it resumes tracking.
+## 🔐 Privacy & Security (Important)
 
-## How It Works
-### 1. Live Tracking
-- The extension tracks your active VS Code usage and updates the timer every second.
-- Screen time is paused when you minimize or unfocus the editor and resumes when you return.
+- ✅ **All screen time data is stored locally on your machine only.**
+- 🚫 **No data is sent to any server.**
+- 🔒 **No internet access, tracking, or analytics.**
+- 👤 Your usage data always stays private.
 
-### 2. Workspace-Specific Tracking
-- Each workspace's screen time is tracked independently and saved for the current day.
-- You can close VS Code and reopen it later to see the total screen time for the same workspace automatically resumed.
+---
 
-### 3. Easy Data Reset
-- The Delete Screen Time command clears all saved time data for the day and resets the timer to 0.
+## ✨ Features
+- ⏳ **Live screen time** displayed in the VS Code status bar.
+- 📁 **Workspace-specific** screen time tracking.
+- 📊 **Dashboard view** for all recorded time.
+- ⏸️ Automatically pauses when VS Code loses focus.
+- ▶️ Automatically resumes when VS Code regains focus.
+- 🔄 Resumes tracking for the current day.
+- 🗑️ One-click option to delete all saved screen time data.
+- 👀 Displays time in a human-readable format (hh:mm:ss).
 
-## Commands
-- `Show Screen Time`: Displays the current screen time in a popup message.
-- `Delete Screen Time`: Deletes all saved screen time data and resets the displayed time.
+---
+
+## 🚀 Getting Started
+
+1. Install the extension from the VS Code Marketplace.
+2. Open VS Code — screen time tracking starts automatically.
+3. View your active screen time in the status bar.
+
+No configuration required.
+
+---
+
+## 📌 Commands
+
+Open the Command Palette (`Ctrl + Shift + P` / `Cmd + Shift + P`) and run:
+
+- **Screen Time: Show**  
+  Displays the current screen time in a popup
+
+- **Screen Time: Dashboard**  
+  Opens a dashboard showing all workspace screen time data
+
+- **Screen Time: Delete**  
+  Deletes all saved screen time data and resets the timer
+
+---
+
+## 🎯 Why Use Screen Time?
+
+- Track how long you spend coding.
+- Improve focus and productivity.
+- Monitor time across multiple projects effortlessly.
+
+---
+
+## 🧩 Extension Behavior
+
+- Tracking starts automatically when VS Code opens.
+- Tracking stops when VS Code is unfocused or minimized.
+- No manual start/stop required.
+
+---
+
+## 📄 License
+
+MIT License
+
+
+Made with 💙 by Shashi Kiran.
