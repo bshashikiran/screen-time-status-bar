@@ -1,4 +1,3 @@
-// Client-side JavaScript for the dashboard
 (function() {
     const vscode = acquireVsCodeApi();
     
@@ -12,6 +11,24 @@
             });
         });
     }
+    
+    window.toggleDateSection = function(sectionId) {
+        const content = document.getElementById(sectionId);
+        if (!content) return;
+        
+        const header = content.previousElementSibling;
+        const toggleIcon = header ? header.querySelector('.toggle-icon') : null;
+        
+        if (content.style.display === 'none' || !content.style.display) {
+            content.style.display = 'block';
+            if (toggleIcon) toggleIcon.textContent = 'expand_less';
+            if (header) header.classList.add('expanded');
+        } else {
+            content.style.display = 'none';
+            if (toggleIcon) toggleIcon.textContent = 'expand_more';
+            if (header) header.classList.remove('expanded');
+        }
+    };
     
     // Handle messages from extension
     window.addEventListener('message', event => {

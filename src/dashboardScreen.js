@@ -140,25 +140,33 @@ const generateHistoricalDataHTML = (allData) => {
         `;
     }
     
-    return allData.map(day => `
+    return allData.map((day, index) => {
+        const sectionId = `date-section-${index}`;
+        return `
         <div class="date-section">
-            <div class="date-header">
-                <span class="date-label">${day.date}</span>
+            <div class="date-header" onclick="toggleDateSection('${sectionId}')">
+                <div class="date-header-left">
+                    <span class="material-icons toggle-icon">expand_more</span>
+                    <span class="date-label">${day.date}</span>
+                </div>
                 <span class="date-total">Total: ${day.totalTime}</span>
             </div>
-            <ul class="workspace-list">
-                ${day.workspaces.map(ws => `
-                    <li class="workspace-item">
-                        <div class="workspace-info">
-                            <div class="workspace-name">${escapeHtml(ws.name)}</div>
-                            <div class="workspace-path">${escapeHtml(ws.fullPath)}</div>
-                        </div>
-                        <div class="workspace-time">${ws.time}</div>
-                    </li>
-                `).join('')}
-            </ul>
+            <div class="date-content" id="${sectionId}" style="display: none;">
+                <ul class="workspace-list">
+                    ${day.workspaces.map(ws => `
+                        <li class="workspace-item">
+                            <div class="workspace-info">
+                                <div class="workspace-name">${escapeHtml(ws.name)}</div>
+                                <div class="workspace-path">${escapeHtml(ws.fullPath)}</div>
+                            </div>
+                            <div class="workspace-time">${ws.time}</div>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 };
 
 const getWebviewContent = (data) => {

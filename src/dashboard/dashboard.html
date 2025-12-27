@@ -65,12 +65,15 @@
         </div>
         
         <section class="section">
-            <div class="section-header">
-                <span class="material-icons section-icon">work</span>
-                <h2 class="section-title">Today's Workspaces</h2>
+            <div class="section-header today-section-header expanded" onclick="toggleDateSection('today-workspaces-content')">
+                <div class="section-header-left">
+                    <span class="material-icons toggle-icon">expand_less</span>
+                    <span class="material-icons section-icon">work</span>
+                    <h2 class="section-title">Today's Workspaces</h2>
+                </div>
                 <span class="section-date">{{TODAY_DATE}}</span>
             </div>
-            <div id="today-workspaces">
+            <div id="today-workspaces-content" style="display: block;">
                 {{TODAY_WORKSPACES}}
             </div>
         </section>
