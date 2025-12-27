@@ -3,7 +3,7 @@ const { startTimer, stopTimer, calculateCurrentScreenTime, getCurrentElapsedTime
 const { saveScreenTime } = require('./saveScreenTime');
 const { retrieveScreenTime } = require('./retrieveScreenTime');
 const { deleteScreenTime } = require('./deleteScreenTime');
-const { showDashboard } = require('./dashboard');
+const { showDashboard } = require('./dashboardScreen');
 const { SAVE_INTERVAL_MS } = require('./constants/constant');
 
 const activate = (context) => {
