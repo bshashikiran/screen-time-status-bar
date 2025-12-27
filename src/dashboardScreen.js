@@ -35,6 +35,9 @@ const getDashboardContent = () => {
     const workspaceCount = uniqueWorkspaces.size;
 
     const sortedDates = Object.keys(allData).sort((a, b) => new Date(b) - new Date(a));
+    
+    // Filter out today's date from historical data
+    const historicalDates = sortedDates.filter(date => date !== today);
 
     return {
         today: today,
@@ -47,7 +50,7 @@ const getDashboardContent = () => {
             fullPath: ws,
             time: formatTime(todayData[ws] || 0)
         })),
-        allData: sortedDates.map(date => ({
+        allData: historicalDates.map(date => ({
             date: date,
             workspaces: Object.keys(allData[date]).map(ws => ({
                 name: path.basename(ws) || ws,
