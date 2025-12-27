@@ -12,20 +12,15 @@
     "commands": [
       {
         "command": "extension.showScreenTime",
-        "title": "Show Screen Time"
+        "title": "Screen Time: Show"
       },
       {
         "command": "extension.deleteScreenTime",
-        "title": "Delete Screen Time"
+        "title": "Screen Time: Delete"
       },
       {
         "command": "extension.showScreenTimeDashboard",
-        "title": "Show Screen Time Dashboard",
-        "_shashi": "look at this later",
-        "icon": {
-          "light": "images/screen-time-status-bar-icon.png",
-          "dark": "images/screen-time-status-bar-icon.png"
-        }
+        "title": "Screen Time: Dashboard"
       }
     ]
   },
