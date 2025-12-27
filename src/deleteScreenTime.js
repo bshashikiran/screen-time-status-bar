@@ -1,16 +1,12 @@
-const { getExtensionPath } = require('./utils/commonUtils');
-const { WORKSPACE_SCREEN_TIME_PATH } = require("./constants/constant");
+const { getDataFilePath } = require('./utils/storageUtils');
 const fs = require('fs');
-const path = require('path');
 
 const deleteScreenTime = () => {
-    const extensionPath = getExtensionPath();
-    if (!extensionPath) {
-        console.error("Extension path is invalid - deleteScreenTime. Exiting.");
+    const filePath = getDataFilePath();
+    if (!filePath) {
+        console.error("Data file path is invalid - deleteScreenTime. Exiting.");
         return false;
     }
-
-    const filePath = path.join(extensionPath, WORKSPACE_SCREEN_TIME_PATH);
     if (!fs.existsSync(filePath)) {
         console.error("Workspace file path does not exist:", filePath);
         return false;

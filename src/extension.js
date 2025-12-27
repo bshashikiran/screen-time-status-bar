@@ -5,10 +5,15 @@ const { retrieveScreenTime } = require('./retrieveScreenTime');
 const { deleteScreenTime } = require('./deleteScreenTime');
 const { showDashboard } = require('./dashboardScreen');
 const { SAVE_INTERVAL_MS } = require('./constants/constant');
+const { initializeStorage, migrateDataFromOldVersions } = require('./utils/storageUtils');
 
 const activate = (context) => {
 
 	console.log('Extension "screen-time-status-bar" is now active!');
+	
+	initializeStorage(context);
+	migrateDataFromOldVersions();
+	
 	let retrievedScreenTime = retrieveScreenTime();
 
 	let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);

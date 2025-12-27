@@ -1,16 +1,14 @@
-const { getExtensionPath, getCurrentWorkSpace, getTodayDate } = require('./utils/commonUtils');
-const { WORKSPACE_SCREEN_TIME_PATH, UNTITLED } = require("./constants/constant");
+const { getCurrentWorkSpace, getTodayDate } = require('./utils/commonUtils');
+const { UNTITLED } = require("./constants/constant");
+const { getDataFilePath } = require('./utils/storageUtils');
 const fs = require('fs');
-const path = require('path');
 
 const retrieveScreenTime = () => {
-    const extensionPath = getExtensionPath();
-    if (!extensionPath) {
-        console.error("Extension path is invalid - retrieveScreenTime. Exiting.");
+    const filePath = getDataFilePath();
+    if (!filePath) {
+        console.error("Data file path is invalid - retrieveScreenTime. Exiting.");
         return 0;
     }
-
-    const filePath = path.join(extensionPath, WORKSPACE_SCREEN_TIME_PATH);
     if (!fs.existsSync(filePath)) {
         console.log("No existing workspace screen time file found.");
         return 0;
