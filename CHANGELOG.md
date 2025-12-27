@@ -1,3 +1,7 @@
+#### 0.0.6 - 2025-12-27
+#### 🔗 Added
+- Dashboard View
+
 #### 0.0.4 - 2024-12-08
 #### ✨ Enhancements
 - Added workspace-specific screen time tracking and automatic resume for the current day.
