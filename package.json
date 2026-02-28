@@ -2,7 +2,7 @@
   "name": "screen-time-status-bar",
   "displayName": "Screen Time",
   "description": "Track screen time live with easy options to save, delete and with dashboard screen",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "bshashikiran",
   "engines": {
     "vscode": "^1.75.0"
@@ -28,16 +28,27 @@
     "onStartupFinished",
     "onLanguage:json"
   ],
-  "categories": ["Education", "Visualization", "Other"],
+  "categories": [
+    "Education",
+    "Visualization",
+    "Other"
+  ],
   "dependencies": {
     "screen-time-status-bar": "file:"
   },
   "devDependencies": {
-    "@vscode/vsce": "3.3.1"
+    "@vscode/vsce": "^3.3.1"
   },
   "icon": "images/screen-time-status-bar-icon.png",
   "galleryBanner": {
     "color": "#1E90FF",
     "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bshashikiran/screen-time-status-bar"
+  },
+  "bugs": {
+    "url": "https://github.com/bshashikiran/screen-time-status-bar/issues"
   }
 }

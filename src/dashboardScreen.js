@@ -39,6 +39,63 @@ const getDashboardContent = () => {
     // Filter out today's date from historical data
     const historicalDates = sortedDates.filter(date => date !== today);
 
+    const historicalByYear = {};
+
+    historicalDates.forEach(date => {
+        const [year, month] = date.split('-');
+        if (!historicalByYear[year]) {
+            historicalByYear[year] = {};
+        }
+        if (!historicalByYear[year][month]) {
+            historicalByYear[year][month] = [];
+        }
+
+        const workspaces = Object.keys(allData[date]).map(ws => ({
+            name: path.basename(ws) || ws,
+            fullPath: ws,
+            time: formatTime(allData[date][ws] || 0)
+        }));
+        const totalDayTime = Object.values(allData[date]).reduce((sum, time) => sum + (time || 0), 0);
+
+        historicalByYear[year][month].push({
+            date: date,
+            workspaces: workspaces,
+            totalTimeSeconds: totalDayTime
+        });
+    });
+
+    const groupedHistoricalData = Object.keys(historicalByYear)
+        .sort((a, b) => Number(b) - Number(a))
+        .map(year => {
+            const monthMap = historicalByYear[year];
+            const months = Object.keys(monthMap)
+                .sort((a, b) => Number(b) - Number(a))
+                .map(month => {
+                    const days = monthMap[month]
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                        .map(day => ({
+                            date: day.date,
+                            workspaces: day.workspaces,
+                            totalTime: formatTime(day.totalTimeSeconds)
+                        }));
+
+                    const monthTotal = monthMap[month].reduce((sum, day) => sum + day.totalTimeSeconds, 0);
+                    return {
+                        month: `${year}-${month}`,
+                        days: days,
+                        totalTime: formatTime(monthTotal),
+                        totalTimeSeconds: monthTotal
+                    };
+                });
+
+            const yearTotal = months.reduce((sum, month) => sum + month.totalTimeSeconds, 0);
+            return {
+                year: year,
+                months: months.map(({ totalTimeSeconds, ...month }) => month),
+                totalTime: formatTime(yearTotal)
+            };
+        });
+
     return {
         today: today,
         totalTimeToday: formatTime(totalTimeToday),
@@ -50,17 +107,7 @@ const getDashboardContent = () => {
             fullPath: ws,
             time: formatTime(todayData[ws] || 0)
         })),
-        allData: historicalDates.map(date => ({
-            date: date,
-            workspaces: Object.keys(allData[date]).map(ws => ({
-                name: path.basename(ws) || ws,
-                fullPath: ws,
-                time: formatTime(allData[date][ws] || 0)
-            })),
-            totalTime: formatTime(
-                Object.values(allData[date]).reduce((sum, time) => sum + (time || 0), 0)
-            )
-        }))
+        allData: groupedHistoricalData
     };
 };
 
@@ -104,6 +151,15 @@ const escapeHtml = (text) => {
     return text.replace(/[&<>"']/g, m => map[m]);
 };
 
+const formatMonthLabel = (monthKey) => {
+    const [year, month] = monthKey.split('-').map(Number);
+    if (!year || !month) {
+        return monthKey;
+    }
+    const date = new Date(year, month - 1, 1);
+    return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+};
+
 const generateTodayWorkspacesHTML = (workspaces) => {
     if (workspaces.length === 0) {
         return `
@@ -143,29 +199,61 @@ const generateHistoricalDataHTML = (allData) => {
         `;
     }
     
-    return allData.map((day, index) => {
-        const sectionId = `date-section-${index}`;
+    return allData.map((yearGroup, yearIndex) => {
+        const yearSectionId = `year-section-${yearIndex}`;
         return `
-        <div class="date-section">
-            <div class="date-header" onclick="toggleDateSection('${sectionId}')">
+        <div class="year-section">
+            <div class="year-header" onclick="toggleDateSection('${yearSectionId}')">
                 <div class="date-header-left">
                     <span class="material-icons toggle-icon">expand_more</span>
-                    <span class="date-label">${day.date}</span>
+                    <span class="date-label">${yearGroup.year}</span>
                 </div>
-                <span class="date-total">Total: ${day.totalTime}</span>
+                <span class="date-total">Total: ${yearGroup.totalTime}</span>
             </div>
-            <div class="date-content" id="${sectionId}" style="display: none;">
-                <ul class="workspace-list">
-                    ${day.workspaces.map(ws => `
-                        <li class="workspace-item">
-                            <div class="workspace-info">
-                                <div class="workspace-name">${escapeHtml(ws.name)}</div>
-                                <div class="workspace-path">${escapeHtml(ws.fullPath)}</div>
+            <div class="year-content" id="${yearSectionId}" style="display: none;">
+                ${yearGroup.months.map((monthGroup, monthIndex) => {
+                    const monthSectionId = `month-section-${yearIndex}-${monthIndex}`;
+                    return `
+                    <div class="month-section">
+                        <div class="month-header" onclick="toggleDateSection('${monthSectionId}')">
+                            <div class="date-header-left">
+                                <span class="material-icons toggle-icon">expand_more</span>
+                                <span class="date-label">${escapeHtml(formatMonthLabel(monthGroup.month))}</span>
                             </div>
-                            <div class="workspace-time">${ws.time}</div>
-                        </li>
-                    `).join('')}
-                </ul>
+                            <span class="date-total">Total: ${monthGroup.totalTime}</span>
+                        </div>
+                        <div class="month-content" id="${monthSectionId}" style="display: none;">
+                            ${monthGroup.days.map((day, dayIndex) => {
+                                const daySectionId = `date-section-${yearIndex}-${monthIndex}-${dayIndex}`;
+                                return `
+                                <div class="date-section">
+                                    <div class="date-header" onclick="toggleDateSection('${daySectionId}')">
+                                        <div class="date-header-left">
+                                            <span class="material-icons toggle-icon">expand_more</span>
+                                            <span class="date-label">${day.date}</span>
+                                        </div>
+                                        <span class="date-total">Total: ${day.totalTime}</span>
+                                    </div>
+                                    <div class="date-content" id="${daySectionId}" style="display: none;">
+                                        <ul class="workspace-list">
+                                            ${day.workspaces.map(ws => `
+                                                <li class="workspace-item">
+                                                    <div class="workspace-info">
+                                                        <div class="workspace-name">${escapeHtml(ws.name)}</div>
+                                                        <div class="workspace-path">${escapeHtml(ws.fullPath)}</div>
+                                                    </div>
+                                                    <div class="workspace-time">${ws.time}</div>
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                    `;
+                }).join('')}
             </div>
         </div>
     `;

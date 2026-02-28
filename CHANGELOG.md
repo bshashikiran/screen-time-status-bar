@@ -1,3 +1,7 @@
+#### 0.0.7 - 2026-02-28
+#### ✨ Enhancements
+- Group historical data by year & month.
+
 #### 0.0.6 - 2025-12-27
 #### 🔗 Added
 - Dashboard View

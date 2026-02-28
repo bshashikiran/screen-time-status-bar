@@ -251,9 +251,69 @@ body {
 }
 
 /* Date Section */
+.year-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--vscode-editorWidget-background);
+    border-radius: 10px;
+    border: 1px solid var(--vscode-panel-border);
+}
+
+.year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 12px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+}
+
+.year-header:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.year-content {
+    margin-top: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+.month-section {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--vscode-editor-background);
+    border-radius: 8px;
+    border: 1px solid var(--vscode-panel-border);
+}
+
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 10px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+}
+
+.month-header:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.month-content {
+    margin-top: 10px;
+    animation: slideDown 0.3s ease;
+}
+
 .date-section {
-    margin-bottom: 32px;
-    padding: 20px;
+    margin-bottom: 12px;
+    padding: 10px;
     background: var(--vscode-editorWidget-background);
     border-radius: 10px;
     border: 1px solid var(--vscode-panel-border);
